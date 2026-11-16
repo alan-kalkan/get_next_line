@@ -6,7 +6,7 @@
 /*   By: akalkan <akalkan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 14:14:42 by akalkan           #+#    #+#             */
-/*   Updated: 2026/11/16 16:32:51 by akalkan          ###   ########.fr       */
+/*   Updated: 2026/11/16 21:02:32 by akalkan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ char	*extract_line(char *stash)
 		line[i] = stash[i];
 		i++;
 	}
-	line[i] = stash[i];
+	if (stash[i] == '\n')
+		line[i] = stash[i++];
+	line[i] = '\0';
 	return (line);
 }
 

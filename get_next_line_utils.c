@@ -6,7 +6,7 @@
 /*   By: akalkan <akalkan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 14:14:45 by akalkan           #+#    #+#             */
-/*   Updated: 2026/11/16 14:24:57 by akalkan          ###   ########.fr       */
+/*   Updated: 2026/11/16 21:00:27 by akalkan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strjoin(char *s1, char *s2);
 
 size_t	ft_strlen(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -86,23 +86,16 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*result;
 
 	if (!s1)
-	{
-		s1 = (char *)malloc(1 * sizeof(char));
-		if (!s1)
-			return (NULL);
-		s1[0] = '\0';
-	}
-	if (!s2)
-		return (NULL);
-	result = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+		s1 = ft_strdup("");
+	if (!s1 || !s2)
+		return (free(s1), NULL);
+	result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!result)
 		return (free(s1), NULL);
 	i = 0;
-	while (s1[i])
-	{
-		result[i] = s1[i];
-		i++;
-	}
+	j = 0;
+	while (s1[j])
+		result[i++] = s1[j++];
 	j = 0;
 	while (s2[j])
 		result[i++] = s2[j++];
@@ -115,7 +108,9 @@ char	*ft_strdup(const char *s)
 {
 	char	*_s;
 	size_t	i;
-
+	
+	if (!s)
+		return (NULL);
 	i = 0;
 	_s = (char *)malloc(ft_strlen(s) + 1);
 	if (!_s)
