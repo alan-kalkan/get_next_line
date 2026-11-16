@@ -6,7 +6,7 @@
 /*   By: akalkan <akalkan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 14:14:45 by akalkan           #+#    #+#             */
-/*   Updated: 2026/11/15 15:39:33 by akalkan          ###   ########.fr       */
+/*   Updated: 2026/11/16 14:24:57 by akalkan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 5
 #endif
+
+char	*ft_strdup(const char *s);
+size_t	ft_strlen(const char *str);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
 
 size_t	ft_strlen(const char *str)
 {
@@ -54,22 +59,73 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (sub_str);
 }
 
-char	*read_line(int fd)
+char	*ft_strchr(const char *s, int c)
 {
-	int		line;
-	char	*buffer;
-	int		buffer_size;
+	int		i;
+	char	ch;
 
-	buffer_size = 5;
-	buffer = malloc(buffer_size + 1);
-	if (!buffer)
+	if (!s)
 		return (NULL);
-	line = read(fd, buffer, buffer_size);
-	if (line <= 0)
+	ch = (char)c;
+	i = 0;
+	while (s[i])
 	{
-		free(buffer);
-		return (NULL);
+		if (s[i] == ch)
+			return ((char *)&s[i]);
+		i++;
 	}
-	buffer[line] == '\0';
-	return (buffer);
+	if (s[i] == ch)
+		return ((char *)&s[i]);
+	return (NULL);
 }
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	i;
+	size_t	j;
+	char	*result;
+
+	if (!s1)
+	{
+		s1 = (char *)malloc(1 * sizeof(char));
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
+	}
+	if (!s2)
+		return (NULL);
+	result = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!result)
+		return (free(s1), NULL);
+	i = 0;
+	while (s1[i])
+	{
+		result[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (s2[j])
+		result[i++] = s2[j++];
+	result[i] = '\0';
+	free(s1);
+	return (result);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*_s;
+	size_t	i;
+
+	i = 0;
+	_s = (char *)malloc(ft_strlen(s) + 1);
+	if (!_s)
+		return (NULL);
+	while (s[i])
+	{
+		_s[i] = s[i];
+		i++;
+	}
+	_s[i] = '\0';
+	return (_s);
+}
+
